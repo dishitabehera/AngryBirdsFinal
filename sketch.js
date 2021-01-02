@@ -85,9 +85,10 @@ function draw(){
     pig3.score();
     if(mouseIsPressed && gamestate === "START"){
         Matter.Body.setPosition( bird.body,{x: mouseX, y: mouseY});
+        
     }
 
-    if(bird.body.position.y > 360 && gamestate === "FLY"){
+    if((bird.body.position.y > 360 || bird.body.speed < 0.5 )&& gamestate === "FLY"){
         push()
         fill(255,blink)
         textSize(20)
@@ -111,8 +112,10 @@ function draw(){
             blink = 255
         }
         pop()
-    }
 
+        
+    }
+   
    
 
 }
@@ -123,7 +126,7 @@ function keyPressed(){
         gamestate = "START"
         bird.tra = []
         Matter.Body.setAngle(bird.body, 0)
-        lives = lives - 1
+        
     }
     if (gamestate === "END" && keyCode === 82){
         location.reload()
@@ -139,6 +142,7 @@ function keyPressed(){
 function mouseReleased(){
     chain1.fly();
     gamestate = "FLY"
+    lives = lives - 1
 
 }
 
